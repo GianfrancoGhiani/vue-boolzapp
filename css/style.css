@@ -39,6 +39,7 @@
     width: 100%;
 }
 .user-bg{
+    height: 4.6rem;
     background-color: var(--user-bg);
 }
 .notification-bg{
@@ -47,7 +48,8 @@
 .light-bg{
     background-color: var(--user-bg);
 }
-/*           main         */
+/*           main  css       */
+
 #app{
     position: absolute;
     top: 0;
@@ -70,6 +72,8 @@
     width: 70%;
     height: 100%;
 }
+
+/* sidebar styling  */ 
 .user-bg i{
     font-size: 1.3rem;
 }
@@ -104,4 +108,28 @@
 }
 .search button{
     width: calc(20% - 0.4rem);
+}
+ /* active chat */
+ .active-chat{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+ }
+.active-chat .icons{
+    width: 10%;
+}
+.new-msg{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+.msg input{
+    width: 80%;
+}
+.chat-content{
+    padding-top: 4.6rem;
+    background-image: url(../img/mine.jpg);
+    background-size: contain;
 }
