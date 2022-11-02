@@ -5,6 +5,7 @@
     --user-bg: #eaeaea;
     --notif-bg: #8edafc;
     --sent-msg: #d5f9ba;
+    --active-chat: rgb(120, 120, 120);
 }
 *{
     font-size: 12px;
@@ -121,9 +122,13 @@
 }
 .contact{
     border-bottom: 1px dotted white;
+    cursor: pointer;
 }
 .last-msg{
     font-size: 80%;
+}
+.active{
+    background-color: var(--active-chat) ;
 }
 
 
@@ -155,11 +160,23 @@
     margin-top: 4.6rem;
     height:calc(100% - 9.2rem);
     background-image: url(../img/mine.jpg);
-    background-size: contain;
+    flex: 0 0 0;
+}
+.chat-baloon{
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: fit-content;
 }
 .sent{
     background-color: var(--sent-msg);
+    align-self: flex-end;
 }
 .received{
     background-color: white;
+    align-self: flex-start;
+
+}
+sub{
+    font-size: 70%;
+    display: inline-block;
 }

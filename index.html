@@ -47,8 +47,8 @@
                 </div>
             </div>
             <div class="contacts">
-                <div v-for="(contact, index) in contacts" class="user-bg contact line-height d-flex align-items-center justify-content-between" ::key="contacts[index].id">
-                        <div class="d-flex align-items-center">
+                <div v-for="(contact, index) in contacts" @click="activeChat(contact.id)" class="user-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
+                        <div class="d-flex align-items-center" >
                             <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
                             <div>
                                 <div>{{contact.name}}</div>
@@ -67,8 +67,8 @@
         <div class="main-chat position-relative">
             <div class="active-chat user-bg line-height d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
-                    <div class="pro-pic"><img src="./img/avatar_io.jpg" alt="Dinamic Text"></div>
-                    <span>Dinamic Text</span>
+                    <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
+                    <span>{{contacts[activeChatIndex].name}}</span>
                 </div>
                 <div class="icons p-3 d-flex align-items-center justify-content-between mx-3 text-secondary">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -76,14 +76,17 @@
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
             </div>
-            <div class="chat-content">
-
+            <div class="chat-content p-4 d-flex flex-column">
+                <div v-for="messageContainer in contacts[activeChatIndex].messages" :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between">
+                    {{messageContainer.message}} 
+                    <sub class="text-secondary text-end ms-5 align-self-end">{{messageContainer.date.split(' ')[1].split(':')[0] + ':' + messageContainer.date.split(' ')[1].split(':')[1]}}</sub>
+                </div>
 
             </div>
             <div class="new-msg line-height">
                 <div class="msg user-bg d-flex align-items-center justify-content-between p-2">
                     <button class="btn px-5"><i class="fa-regular fa-face-smile"></i></button>
-                    <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio">
+                    <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio" v-model="inputTextMessage" @keyup.enter="sendMessage">
                     <button class="btn px-5"><i class="fa-solid fa-microphone"></i></button>
                 </div>
             </div>

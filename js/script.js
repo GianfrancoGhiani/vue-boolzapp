@@ -1,11 +1,5 @@
 'use strict'
-/*
-Milestone 1
-● Replica della grafica con la possibilità di avere messaggi scritti dall’utente (verdi) e
-dall’interlocutore (bianco) assegnando due classi CSS diverse
-● Visualizzazione dinamica della lista contatti: tramite la direttiva v-for, visualizzare
-nome e immagine di ogni contatto
-*/
+
 const app = Vue.createApp({
     data() {
         return {
@@ -179,11 +173,47 @@ const app = Vue.createApp({
                         }
                     ],
                     }
-                    ]
+                    ],
+            activeChatIndex: 0,
+            newMessageModel: {
+                
+                date: `${new Date().getDay()}/${new Date().getMonth()}/${new Date().getFullYear()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}` ,
+                message: '',
+                status: 'sent'
+                },
+            inputTextMessage: '',
             }
     },
+    methods: {
+        //take the id from v-for cicle with value.property
+        activeChat(id){
+            //using find index tu find the chat to show (in case of list changes)
+            this.activeChatIndex = this.contacts.findIndex((contact)=>{
+                return contact.id == id
+            })
+        },
+
+        sendMessage(){
+            //clone the "newMessageModel" and add the text with input v-model
+            const modelClone = Object.assign({}, this.newMessageModel);
+            modelClone.message = this.inputTextMessage;
+            this.inputTextMessage = '';
+            // pushed into messages array
+            this.contacts[this.activeChatIndex].messages.push(modelClone);
+            this.autoAnswer();
+        },
+
+        autoAnswer(){
+            setTimeout(()=>{
+                const modelClone = Object.assign({}, this.newMessageModel);
+                modelClone.message = 'Ok';
+                modelClone.status = 'received';
+                this.contacts[this.activeChatIndex].messages.push(modelClone);
+            }, 1000)
+        }
+    },
     mounted() {
-        console.log(this.contacts[0].messages[0].date.split(' ')[0])
+        console.log()
     },
 })
 app.mount('#app');
