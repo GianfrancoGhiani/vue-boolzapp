@@ -4,6 +4,7 @@
     --my-bg-light: #d9dbd5;
     --user-bg: #eaeaea;
     --notif-bg: #8edafc;
+    --sent-msg: #d5f9ba;
 }
 *{
     font-size: 12px;
@@ -39,7 +40,6 @@
     width: 100%;
 }
 .user-bg{
-    height: 4.6rem;
     background-color: var(--user-bg);
 }
 .notification-bg{
@@ -49,7 +49,9 @@
     background-color: var(--user-bg);
 }
 /*           main  css       */
-
+.line-height{
+    height: 4.6rem;
+}
 #app{
     position: absolute;
     top: 0;
@@ -58,13 +60,6 @@
     z-index: 500;
     color: black;
     height: calc(100% - 2rem);
-    background-color: red;
-}
-.sidebar{
-    border: 1px solid white;
-
-    width: 30%;
-    height: 100%;
 }
 .main-chat{
     border: 1px solid white;
@@ -74,6 +69,13 @@
 }
 
 /* sidebar styling  */ 
+.sidebar{
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--user-bg);
+    border: 1px solid var(--my-bg-light);
+}
 .user-bg i{
     font-size: 1.3rem;
 }
@@ -97,6 +99,9 @@
     font-size: 80%;
     cursor: pointer;
 }
+.search-wrap{
+    height: 2.6rem;
+}
 .search{
     background-color: white;
     border: 1px solid var(--my-bg-light);
@@ -109,7 +114,24 @@
 .search button{
     width: calc(20% - 0.4rem);
 }
+.contacts{
+    overflow-y: auto;
+    height: calc(100% - (9.2rem + 2.6rem));
+
+}
+.contact{
+    border-bottom: 1px dotted white;
+}
+.last-msg{
+    font-size: 80%;
+}
+
+
+
  /* active chat */
+.main-chat{
+     overflow: hidden;
+}
  .active-chat{
     position: absolute;
     width: 100%;
@@ -129,7 +151,15 @@
     width: 80%;
 }
 .chat-content{
-    padding-top: 4.6rem;
+    overflow-y: auto;
+    margin-top: 4.6rem;
+    height:calc(100% - 9.2rem);
     background-image: url(../img/mine.jpg);
     background-size: contain;
+}
+.sent{
+    background-color: var(--sent-msg);
+}
+.received{
+    background-color: white;
 }

@@ -18,7 +18,7 @@
     <div id="app" class="container-md p-0 my-3 d-flex align-items-center justify-content-center">
         <div class="sidebar">
             <div class="static-content light-bg">
-                <div class="user-bg d-flex align-items-center justify-content-between">
+                <div class="user-bg line-height d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <div class="pro-pic"><img src="./img/avatar_io.jpg" alt="Sofia"></div>
                         <span>Sofia</span>
@@ -29,7 +29,7 @@
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </div>
                 </div>
-                <div class="notification-bg">
+                <div class="notification-bg line-height">
                     <div class="d-flex align-items-center">
                         <div class="pro-pic text-center"><i class="fa-solid fa-bell-slash"></i></div>
                         <span>
@@ -47,11 +47,25 @@
                 </div>
             </div>
             <div class="contacts">
-
+                <div v-for="(contact, index) in contacts" class="user-bg contact line-height d-flex align-items-center justify-content-between" ::key="contacts[index].id">
+                        <div class="d-flex align-items-center">
+                            <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
+                            <div>
+                                <div>{{contact.name}}</div>
+                                <div class="last-msg text-secondary">
+                                    {{contact.messages[contact.messages.length - 1].message}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="last-msg text-secondary m-2">
+                            {{contact.messages[0].date.split(' ')[0]}}
+                            {{contact.messages[0].date.split(' ')[1].split(':')[0] + ':' + contact.messages[0].date.split(' ')[1].split(':')[1]}}
+                        </div>
+                </div>
             </div>
         </div>
         <div class="main-chat position-relative">
-            <div class="active-chat user-bg d-flex align-items-center justify-content-between">
+            <div class="active-chat user-bg line-height d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div class="pro-pic"><img src="./img/avatar_io.jpg" alt="Dinamic Text"></div>
                     <span>Dinamic Text</span>
@@ -62,8 +76,11 @@
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                 </div>
             </div>
-            <div class="chat-content"></div>
-            <div class="new-msg">
+            <div class="chat-content">
+
+
+            </div>
+            <div class="new-msg line-height">
                 <div class="msg user-bg d-flex align-items-center justify-content-between p-2">
                     <button class="btn px-5"><i class="fa-regular fa-face-smile"></i></button>
                     <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio">
