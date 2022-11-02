@@ -1,0 +1,107 @@
+/* background colors */
+:root{
+    --my-bg-green: #009688;
+    --my-bg-light: #d9dbd5;
+    --user-bg: #eaeaea;
+    --notif-bg: #8edafc;
+}
+*{
+    font-size: 12px;
+}
+/* general */
+
+/* -----------------------*/
+/*          colors        */
+.bg-wrapper{
+    height: 100vh;
+    width: 100%;
+    z-index: 0;
+    position: relative;
+}
+.bg-green{
+    z-index: 0;
+
+    background-color: var(--my-bg-green);
+    height: 20%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.bg-light{
+    z-index: 0;
+
+    background-color: var(--my-bg-light);
+    height: 80%;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    width: 100%;
+}
+.user-bg{
+    background-color: var(--user-bg);
+}
+.notification-bg{
+    background-color: var(--notif-bg);
+}
+.light-bg{
+    background-color: var(--user-bg);
+}
+/*           main         */
+#app{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 500;
+    color: black;
+    height: calc(100% - 2rem);
+    background-color: red;
+}
+.sidebar{
+    border: 1px solid white;
+
+    width: 30%;
+    height: 100%;
+}
+.main-chat{
+    border: 1px solid white;
+
+    width: 70%;
+    height: 100%;
+}
+.user-bg i{
+    font-size: 1.3rem;
+}
+.pro-pic{
+    margin: 0.6rem;
+    width: 3.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.pro-pic img{
+    max-width: 100%;
+}
+.pro-pic i{
+    color: var(--notif-bg);
+    font-size: 1.5rem;
+    width: 3.5rem;
+    line-height: 3.5rem;
+    background-color: white;
+}
+.notif-act{
+    font-size: 80%;
+    cursor: pointer;
+}
+.search{
+    background-color: white;
+    border: 1px solid var(--my-bg-light);
+}
+.search input{
+    width: 80%;
+    border: 0;
+    font-size: 90%;
+}
+.search button{
+    width: calc(20% - 0.4rem);
+}
