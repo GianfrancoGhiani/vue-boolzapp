@@ -1,5 +1,10 @@
 'use strict'
-
+/*
+Milestone 4
+● Ricerca utenti: scrivendo qualcosa nell’input a sinistra, vengono visualizzati solo i
+contatti il cui nome contiene le lettere inserite (es, Marco, Matteo Martina -> Scrivo
+“mar” rimangono solo Marco e Martina)
+*/
 const app = Vue.createApp({
     data() {
         return {
@@ -187,33 +192,52 @@ const app = Vue.createApp({
     methods: {
         //take the id from v-for cicle with value.property
         activeChat(id){
-            //using find index tu find the chat to show (in case of list changes)
+        //using find index tu find the chat to show (in case of list changes)
             this.activeChatIndex = this.contacts.findIndex((contact)=>{
                 return contact.id == id
             })
         },
 
         sendMessage(){
-            //clone the "newMessageModel" and add the text with input v-model
-            const modelClone = Object.assign({}, this.newMessageModel);
-            modelClone.message = this.inputTextMessage;
-            this.inputTextMessage = '';
-            // pushed into messages array
-            this.contacts[this.activeChatIndex].messages.push(modelClone);
-            this.autoAnswer();
+        //clone the "newMessageModel" and add the text with input v-model
+            if(this.inputTextMessage.length > 0){
+                const modelClone = Object.assign({}, this.newMessageModel);
+                modelClone.message = this.inputTextMessage;
+                this.inputTextMessage = '';
+                // push into messages array
+                this.contacts[this.activeChatIndex].messages.push(modelClone);
+                this.autoAnswer();
+            }
         },
 
+        //after 1sec answer at every msg with 'ok' cloning the new message model and changing his status property into 'received'
         autoAnswer(){
             setTimeout(()=>{
                 const modelClone = Object.assign({}, this.newMessageModel);
                 modelClone.message = 'Ok';
                 modelClone.status = 'received';
+                // push into messages array
                 this.contacts[this.activeChatIndex].messages.push(modelClone);
             }, 1000)
+        },
+
+        // take the required chat index
+        // sometimes it can be activeIndex or simply index of contacts array
+        lastMessageReceived(index){
+            //create a contacts[index].messages clone and revert it
+            let revertedMsgArray = Array.from(this.contacts[index].messages);
+            revertedMsgArray = revertedMsgArray.reverse();
+            //search the first result the matches with the condition "status: 'received'" and return his index
+            const lastRecMsgIndex = revertedMsgArray.findIndex((msg)=>{
+                return msg.status == 'received';
+            })
+            //return the obj in the reverted clone that matches the previous condition
+            //so i can use the necessary property like 'date' or 'message' where i want /w a single function
+            return revertedMsgArray[lastRecMsgIndex]
         }
     },
     mounted() {
-        console.log()
+
     },
 })
 app.mount('#app');

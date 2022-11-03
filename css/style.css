@@ -5,7 +5,7 @@
     --user-bg: #eaeaea;
     --notif-bg: #8edafc;
     --sent-msg: #d5f9ba;
-    --active-chat: rgb(120, 120, 120);
+    --active-chat: rgba(120, 120, 120, 0.45);
 }
 *{
     font-size: 12px;
@@ -14,28 +14,25 @@
 
 /* -----------------------*/
 /*          colors        */
-.bg-wrapper{
+.bg-wrapper{ /* 2 colors background */
     height: 100vh;
     width: 100%;
     z-index: 0;
     position: relative;
     background: linear-gradient(180deg, #009688 15%, #DDDBD2 15%);
 }
-
-.user-bg{
+.light-bg{ /* lightgrey background */
     background-color: var(--user-bg);
 }
-.notification-bg{
+.notification-bg{ /* cyan background */
     background-color: var(--notif-bg);
 }
-.light-bg{
-    background-color: var(--user-bg);
-}
+
 /*           main  css       */
-.line-height{
+.line-height{ /* create a standard heigth for lines */
     height: 4.6rem;
 }
-#app{
+#app{ /* app position */
     position: absolute;
     top: 0;
     left: 50%;
@@ -59,10 +56,10 @@
     background-color: var(--user-bg);
     border: 1px solid var(--my-bg-light);
 }
-.user-bg i{
-    font-size: 1.3rem;
+.static-content i{
+    font-size: 1.2rem;
 }
-.pro-pic{
+.pro-pic{ /* creation of a propic circle */
     margin: 0.6rem;
     width: 3.5rem;
     border-radius: 50%;
@@ -82,7 +79,7 @@
     font-size: 80%;
     cursor: pointer;
 }
-.search-wrap{
+.search-wrap{ /* different line heigth */
     height: 2.6rem;
 }
 .search{
@@ -143,14 +140,14 @@
 .msg input{
     width: 80%;
 }
-.chat-content{
+.chat-content{ /* chat viewer size and pos */
     overflow-y: auto;
     margin-top: 4.6rem;
     height:calc(100% - 9.2rem);
     background-image: url(../img/mine.jpg);
     flex: 0 0 0;
 }
-.chat-baloon{
+.chat-baloon{ /* chat baloon common styling */
     border-radius: 1rem;
     padding: 1.5rem;
     max-width: 60%;
@@ -158,11 +155,11 @@
     word-break: break-all;
 
 }
-.sent{
+.sent{ /* sent msg baloon */
     background-color: var(--sent-msg);
     align-self: flex-end;
 }
-.received{
+.received{ /* received msg baloon */
     background-color: white;
     align-self: flex-start;
 

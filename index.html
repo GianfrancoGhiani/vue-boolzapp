@@ -12,10 +12,10 @@
 </head>
 <body>
     <div class="bg-wrapper"></div>
-    <div id="app" class="container-md p-0 my-3 d-flex align-items-center justify-content-center">
+    <div id="app" class="container-lg p-0 my-3 d-flex align-items-center justify-content-center">
         <div class="sidebar">
             <div class="static-content light-bg">
-                <div class="user-bg line-height d-flex align-items-center justify-content-between">
+                <div class="light-bg line-height d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
                         <div class="pro-pic"><img src="./img/avatar_io.jpg" alt="Sofia"></div>
                         <span>Sofia</span>
@@ -36,21 +36,21 @@
                     </div>
 
                 </div>
-                <div class="search-wrap p-1">
-                    <div class="search">
+                <div class="search-wrap">
+                    <div class="search d-flex align-items-center">
                         <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         <input type="text" class="" placeholder="Cerca o inizia una chat">
                     </div>
                 </div>
             </div>
             <div class="contacts">
-                <div v-for="(contact, index) in contacts" @click="activeChat(contact.id)" class="user-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
+                <div v-for="(contact, index) in contacts" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
                         <div class="d-flex align-items-center" >
                             <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
                             <div>
-                                <div>{{contact.name}}</div>
+                                <h6>{{contact.name}}</h6>
                                 <div class="last-msg text-secondary">
-                                    {{contact.messages[contact.messages.length - 1].message}}
+                                    {{lastMessageReceived(index).message}}
                                 </div>
                             </div>
                         </div>
@@ -62,10 +62,13 @@
             </div>
         </div>
         <div class="main-chat position-relative">
-            <div class="active-chat user-bg line-height d-flex align-items-center justify-content-between">
+            <div class="active-chat light-bg line-height d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
-                    <span>{{contacts[activeChatIndex].name}}</span>
+                    <div><h6>{{contacts[activeChatIndex].name}}</h6>
+                        <div class="last-msg text-secondary">{{lastMessageReceived(activeChatIndex).date}}</div>
+                    </div>
+                    
                 </div>
                 <div class="icons p-3 d-flex align-items-center justify-content-between mx-3 text-secondary">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -81,10 +84,10 @@
 
             </div>
             <div class="new-msg line-height">
-                <div class="msg user-bg d-flex align-items-center justify-content-between p-2">
+                <div class="msg light-bg d-flex align-items-center justify-content-between p-2">
                     <button class="btn px-5"><i class="fa-regular fa-face-smile"></i></button>
-                    <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio" v-model="inputTextMessage" @keyup.enter="sendMessage">
-                    <button class="btn px-5"><i class="fa-solid fa-microphone"></i></button>
+                    <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio" v-model.trim="inputTextMessage" @keyup.enter="sendMessage">
+                    <button class="btn px-5"><i class="fa-solid " :class="(inputTextMessage.length > 0) ? 'fa-paper-plane' : 'fa-microphone'" @click="sendMessage"></i></button>
                 </div>
             </div>
         </div>
