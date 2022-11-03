@@ -19,27 +19,9 @@
     width: 100%;
     z-index: 0;
     position: relative;
+    background: linear-gradient(180deg, #009688 15%, #DDDBD2 15%);
 }
-.bg-green{
-    z-index: 0;
 
-    background-color: var(--my-bg-green);
-    height: 20%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-}
-.bg-light{
-    z-index: 0;
-
-    background-color: var(--my-bg-light);
-    height: 80%;
-    position: absolute;
-    top: 20%;
-    left: 0;
-    width: 100%;
-}
 .user-bg{
     background-color: var(--user-bg);
 }
@@ -130,6 +112,12 @@
 .active{
     background-color: var(--active-chat) ;
 }
+.contacts .last-msg{
+    width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 
@@ -165,7 +153,10 @@
 .chat-baloon{
     border-radius: 1rem;
     padding: 1.5rem;
-    width: fit-content;
+    max-width: 60%;
+    min-width: 20%;
+    word-break: break-all;
+
 }
 .sent{
     background-color: var(--sent-msg);
