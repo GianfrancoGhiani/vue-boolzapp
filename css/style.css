@@ -193,13 +193,15 @@ sub{
     font-size: 70%;
     display: inline-block;
 }
+
 .main-chat .icons:last-child{
     cursor: pointer;
 }
 .icon-error i{
     font-size: 6rem;
 }
-.info{
+
+.info{ /* single msg detail */
     font-weight: 500;
     font-size: 70%;
 }

@@ -230,6 +230,7 @@ const app = Vue.createApp({
             }
     },
     computed: {
+        //dinamic sidebar contacts filter, input= searchValue and contact.name
         filteredContacts(){
             return (
                 this.contacts.filter((contact)=>{
@@ -242,12 +243,11 @@ const app = Vue.createApp({
     methods: {
         //take the id from v-for cicle with value.property
         activeChat(id){
-        //using find index tu find the chat to show (in case of list changes)
+        //using findindex to find the chat to show (in case of list changes)
             this.activeChatIndex = this.contacts.findIndex((contact)=>{
                 
                 return contact.id == id
             })
-            console.log(this.contacts[this.activeChatIndex], this.activeChatIndex)
         },
 
         sendMessage(){
@@ -294,34 +294,44 @@ const app = Vue.createApp({
             }
         },
 
+        //take msg index and replace his obj with an empty one
         deleteMessage(i){
             this.contacts[this.activeChatIndex].messages[i] = {};
-            console.log(this.contacts[this.activeChatIndex].messages[i])
         
         },
+
+        //take msg index
         showInfo(i){
             this.authorInfo = '';
             this.dateInfo = '';
             let author;
+            //verify if it's received or not, so determine the author
             if(this.contacts[this.activeChatIndex].messages[i].status == 'received'){
                 author = this.contacts[this.activeChatIndex].name;
             } else{
                 author = 'Sofia';
             }
+            //take the date of the msg by searching in the main array
             const d = this.contacts[this.activeChatIndex].messages[i].date;
             this.authorInfo = `Mittente: ${author}`;
             this.dateInfo = `Data/Tempo: ${d}`;
         },
+
+        //take msg index and reset author and date, change boolean value of menu property
         menu(i){
             this.authorInfo = '';
             this.dateInfo = '';
             this.contacts[this.activeChatIndex].messages[i].menu = !this.contacts[this.activeChatIndex].messages[i].menu
         },
+
+        // take the active chat index, choose the "messages" property and replace it with an empty array
         deleteAllMessages(){
             this.contacts[this.activeChatIndex].messages = [];
             this.show = false;
             
         },
+
+        // take the active chat index and delete from the main array of contacts
         deleteChat(){
             this.contacts.splice([this.activeChatIndex], 1)
             this.show = false;

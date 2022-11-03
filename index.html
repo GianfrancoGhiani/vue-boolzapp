@@ -13,6 +13,9 @@
 <body>
     <div class="bg-wrapper"></div>
     <div id="app" class="container-lg p-0 my-3 d-flex align-items-center justify-content-center">
+        <!-- web app divided into 2 parts -->
+
+        <!-- sidebar -->
         <div class="sidebar">
             <div class="static-content light-bg">
                 <div class="light-bg line-height d-flex align-items-center justify-content-between">
@@ -43,8 +46,11 @@
                     </div>
                 </div>
             </div>
+            <!-- show list of contacts only if there are more than 0 elements -->
             <div class="contacts" v-if="contacts.length > 0">
+                <!-- for every contact create a div/line -->
                 <div v-for="(contact, index) in filteredContacts"  :key="contacts[index].id">
+                    <!-- if u r acting on his chat, his thumb is emphasized -->
                         <div v-if="contact.messages.length > 1" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center" >
                                 <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
@@ -63,8 +69,12 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- main chat -->
         <div class="main-chat position-relative">
             <div class="active-chat light-bg line-height d-flex align-items-center justify-content-between">
+                <!-- show the person to chat only if there are contacts in your list -->
                 <div v-if="contacts.length > 0" class="d-flex align-items-center">
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
                     <div>
@@ -75,6 +85,7 @@
                     </div>
                     
                 </div>
+                <!-- empty else only to preserve the d-flex layout -->
                 <div v-else></div>
                 <div class="icons p-3 d-flex align-items-center justify-content-between mx-3 text-secondary">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -86,11 +97,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="chat-content p-4" v-if="contacts[activeChatIndex].messages.length > 0">
-                <div v-for="(messageContainer, index) in filteredContacts[activeChatIndex].messages" class=" d-flex flex-column">
+            <!-- show the chat only if there are contacts in your list -->
+            <div class="chat-content p-4" v-if="contacts.length > 0">
+                <!-- for every obj in the array messages of the active chat, create a div "chat baloon" -->
+                <div v-for="(messageContainer, index) in contacts[activeChatIndex].messages" class=" d-flex flex-column">
+                    <!-- append class sent or received based of the obj.status property -->
                     <div v-if="messageContainer.message"  :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between" >
                         {{messageContainer.message}}                        
-                    
                         <i class="fa-sharp fa-solid  menu" :class="messageContainer.menu ? 'fa-chevron-left' : 'fa-chevron-down'" @click.stop="menu(index)" ></i>
                         <ul v-if="messageContainer.menu" class="drop-menu light-bg">
                             <li @click="showInfo(index)">
@@ -107,11 +120,15 @@
                 </div>
 
             </div>
+            <!-- else display a "no chat icon" -->
             <div v-else class="chat-content icon-error d-flex align-items-center justify-content-center"> <i class="fa-solid fa-comment-slash fa-fade"></i> </div>
+
+            <!-- new msg input -->
             <div class="new-msg line-height">
                 <div class="msg light-bg d-flex align-items-center justify-content-between p-2">
                     <button class="btn px-5"><i class="fa-regular fa-face-smile"></i></button>
                     <input type="text" class="border-0 p-3" placeholder="Scrivi un messaggio" v-model.trim="inputTextMessage" @keyup.enter="sendMessage">
+                    <!-- when the input string is longer than 0, no space counted, change mic into paper-plane -->
                     <button class="btn px-5"><i class="fa-solid " :class="(inputTextMessage.length > 0) ? 'fa-paper-plane' : 'fa-microphone'" @click="sendMessage"></i></button>
                 </div>
             </div>
