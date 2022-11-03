@@ -39,18 +39,18 @@
                 <div class="search-wrap">
                     <div class="search d-flex align-items-center">
                         <button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        <input type="text" class="" placeholder="Cerca o inizia una chat">
+                        <input type="text" class="" placeholder="Cerca o inizia una chat" v-model.trim="searchValue">
                     </div>
                 </div>
             </div>
             <div class="contacts">
-                <div v-for="(contact, index) in contacts" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
+                <div v-for="(contact, index) in filteredContacts" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
                         <div class="d-flex align-items-center" >
                             <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
                             <div>
                                 <h6>{{contact.name}}</h6>
                                 <div class="last-msg text-secondary">
-                                    {{lastMessageReceived(index).message}}
+                                    {{lastMessageReceived(contact).message}}
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                 <div class="d-flex align-items-center">
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
                     <div><h6>{{contacts[activeChatIndex].name}}</h6>
-                        <div class="last-msg text-secondary">{{lastMessageReceived(activeChatIndex).date}}</div>
+                        <div class="last-msg text-secondary">{{lastMessageReceived(contacts[activeChatIndex]).date}}</div>
                     </div>
                     
                 </div>

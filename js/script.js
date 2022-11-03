@@ -180,14 +180,24 @@ const app = Vue.createApp({
                     }
                     ],
             activeChatIndex: 0,
+            searchValue: '',
             newMessageModel: {
-                
                 date: `${new Date().getDay()}/${new Date().getMonth()}/${new Date().getFullYear()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}` ,
                 message: '',
                 status: 'sent'
                 },
             inputTextMessage: '',
             }
+    },
+    computed: {
+        filteredContacts(){
+            return (
+                this.contacts.filter((contact)=>{
+                    const name = contact.name.toLowerCase();
+                    return name.includes(this.searchValue.toLowerCase());
+                })
+            )
+        },
     },
     methods: {
         //take the id from v-for cicle with value.property
@@ -221,20 +231,21 @@ const app = Vue.createApp({
             }, 1000)
         },
 
-        // take the required chat index
-        // sometimes it can be activeIndex or simply index of contacts array
-        lastMessageReceived(index){
-            //create a contacts[index].messages clone and revert it
-            let revertedMsgArray = Array.from(this.contacts[index].messages);
-            revertedMsgArray = revertedMsgArray.reverse();
-            //search the first result the matches with the condition "status: 'received'" and return his index
-            const lastRecMsgIndex = revertedMsgArray.findIndex((msg)=>{
-                return msg.status == 'received';
+        // take the contact obj
+        lastMessageReceived(contact){
+            const receivedList = [];
+            const received = contact.messages.filter((msg)=>{
+                if(msg.status == 'received'){
+                    const msgRec = msg;
+                    receivedList.push(msg)
+                    return msgRec
+                }
             })
-            //return the obj in the reverted clone that matches the previous condition
-            //so i can use the necessary property like 'date' or 'message' where i want /w a single function
-            return revertedMsgArray[lastRecMsgIndex]
-        }
+            // return the last message obj and than i can use its properties like 'date' or 'message'
+            return receivedList[receivedList.length - 1]
+        },
+
+        
     },
     mounted() {
 
