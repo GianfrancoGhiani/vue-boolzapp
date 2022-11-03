@@ -153,7 +153,32 @@
     max-width: 60%;
     min-width: 20%;
     word-break: break-all;
+    position: relative;
 
+}
+li{
+    list-style: none;
+    line-height: 1.7rem;
+    cursor: pointer;
+}
+li:hover{
+    transform: scale(1.05);
+    font-weight: 500;
+}
+.menu{
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+.drop-menu{
+    font-size: 80%;
+    position: absolute;
+    border-radius: .6rem;
+    padding: 1rem;
+    top: 1rem;
+    right: 2.5rem;
+    z-index: 3000;
 }
 .sent{ /* sent msg baloon */
     background-color: var(--sent-msg);
@@ -167,4 +192,14 @@
 sub{
     font-size: 70%;
     display: inline-block;
+}
+.main-chat .icons:last-child{
+    cursor: pointer;
+}
+.icon-error i{
+    font-size: 6rem;
+}
+.info{
+    font-weight: 500;
+    font-size: 70%;
 }

@@ -43,46 +43,71 @@
                     </div>
                 </div>
             </div>
-            <div class="contacts">
-                <div v-for="(contact, index) in filteredContacts" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between" :key="contacts[index].id">
-                        <div class="d-flex align-items-center" >
-                            <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
-                            <div>
-                                <h6>{{contact.name}}</h6>
-                                <div class="last-msg text-secondary">
-                                    {{lastMessageReceived(contact).message}}
+            <div class="contacts" v-if="contacts.length > 0">
+                <div v-for="(contact, index) in filteredContacts"  :key="contacts[index].id">
+                        <div v-if="contact.messages.length > 1" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center" >
+                                <div class="pro-pic"><img :src="`./img/avatar${contact.avatar}.jpg`" :alt="contact.name"></div>
+                                <div>
+                                    <h6>{{contact.name}}</h6>
+                                    <div class="last-msg text-secondary">
+                                        {{lastMessageReceived(contact).message}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="last-msg text-secondary m-2">
-                            {{contact.messages[0].date.split(' ')[0]}}
-                            {{contact.messages[0].date.split(' ')[1].split(':')[0] + ':' + contact.messages[0].date.split(' ')[1].split(':')[1]}}
+                            <div class="last-msg text-secondary m-2">
+                                {{lastMessageReceived(contact).date.split(' ')[0]}}
+                                {{lastMessageReceived(contact).date.split(' ')[1].split(':')[0] + ':' + lastMessageReceived(contact).date.split(' ')[1].split(':')[1]}}
+                            </div>
                         </div>
                 </div>
             </div>
         </div>
         <div class="main-chat position-relative">
             <div class="active-chat light-bg line-height d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
+                <div v-if="contacts.length > 0" class="d-flex align-items-center">
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
-                    <div><h6>{{contacts[activeChatIndex].name}}</h6>
-                        <div class="last-msg text-secondary">{{lastMessageReceived(contacts[activeChatIndex]).date}}</div>
+                    <div>
+                        <h6>{{contacts[activeChatIndex].name}}</h6>
+                        <div  v-if="contacts[activeChatIndex].messages.length > 1" class="last-msg text-secondary">
+                            {{lastMessageReceived(contacts[activeChatIndex]).date}}
+                        </div>
                     </div>
                     
                 </div>
+                <div v-else></div>
                 <div class="icons p-3 d-flex align-items-center justify-content-between mx-3 text-secondary">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <i class="fa-solid fa-paperclip"></i>
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i class="fa-solid fa-ellipsis-vertical" @click="show = !show"></i>
+                    <ul v-if="show" class="drop-menu light-bg">
+                        <li @click="deleteAllMessages()">Cancella tutti i messaggi</li>
+                        <li @click="deleteChat()">Elimina Chat</li>
+                    </ul>
                 </div>
             </div>
-            <div class="chat-content p-4 d-flex flex-column">
-                <div v-for="messageContainer in contacts[activeChatIndex].messages" :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between">
-                    {{messageContainer.message}} 
-                    <sub class="text-secondary text-end ms-5 align-self-end">{{messageContainer.date.split(' ')[1].split(':')[0] + ':' + messageContainer.date.split(' ')[1].split(':')[1]}}</sub>
+            <div class="chat-content p-4" v-if="contacts[activeChatIndex].messages.length > 0">
+                <div v-for="(messageContainer, index) in filteredContacts[activeChatIndex].messages" class=" d-flex flex-column">
+                    <div v-if="messageContainer.message"  :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between" >
+                        {{messageContainer.message}}                        
+                    
+                        <i class="fa-sharp fa-solid  menu" :class="messageContainer.menu ? 'fa-chevron-left' : 'fa-chevron-down'" @click.stop="menu(index)" ></i>
+                        <ul v-if="messageContainer.menu" class="drop-menu light-bg">
+                            <li @click="showInfo(index)">
+                                <div>Info Messaggio</div>
+                                <ul>
+                                    <li class="info">{{authorInfo}}</li>
+                                    <li class="info">{{dateInfo}}</li>
+                                </ul>
+                            </li>
+                            <li @click="deleteMessage(index)">Cancella Messaggio</li>
+                        </ul>
+                        <sub class="text-secondary text-end ms-5 align-self-end">{{messageContainer.date.split(' ')[1].split(':')[0] + ':' + messageContainer.date.split(' ')[1].split(':')[1]}}</sub>
+                    </div>
                 </div>
 
             </div>
+            <div v-else class="chat-content icon-error d-flex align-items-center justify-content-center"> <i class="fa-solid fa-comment-slash fa-fade"></i> </div>
             <div class="new-msg line-height">
                 <div class="msg light-bg d-flex align-items-center justify-content-between p-2">
                     <button class="btn px-5"><i class="fa-regular fa-face-smile"></i></button>
