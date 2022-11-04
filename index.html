@@ -105,7 +105,7 @@
                     <div v-if="messageContainer.message"  :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between" >
                         {{messageContainer.message}}                        
                         <i class="fa-sharp fa-solid  menu" :class="messageContainer.menu ? 'fa-chevron-left' : 'fa-chevron-down'" @click.stop="menu(index)" ></i>
-                        <ul v-if="messageContainer.menu" class="drop-menu light-bg">
+                        <ul v-if="msgOpt && menuIndex === index" class="drop-menu light-bg">
                             <li @click="showInfo(index)">
                                 <div>Info Messaggio</div>
                                 <ul>
