@@ -205,6 +205,34 @@ sub{
     font-weight: 500;
     font-size: 70%;
 }
+.emoji-btn{
+    position: relative;
+}
+.emoji-wrapper{
+    overflow: hidden;
+}
+.emoji-list{
+    border: 1px dotted var(--active-chat);
+    border-radius: 1rem;
+    padding: .4rem;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 5000;
+    bottom: 2rem;
+    left: 1.5rem;
+    width: 200px;
+    height: 100px;
+}
+.emoji-list span{
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+
+}
+
+
+
 @media screen and (max-width:992px){
     .sidebar .notification-bg{
         padding: .6rem;
@@ -214,10 +242,10 @@ sub{
     }
 }
 @media screen and (max-width:768px){
-    .sidebar{
+    .sidebar, .main-chat{
         width: 100%;
     }
-    .main-chat{
+    .d-small{
         display: none;
     }
 }

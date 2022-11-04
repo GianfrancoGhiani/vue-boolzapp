@@ -188,7 +188,67 @@ const app = Vue.createApp({
             dateInfo:'',
             msgOpt: false,
             menuIndex: null,
-            
+            botAnswers: [
+                'La legge di Murphy dice che tutto quello che deve accadere, accadrà e a noi non sembrava assolutamente una cosa brutta',
+                "Nessuno voleva credermi, ma sapevo che saresti tornato. Come? Perchè il mio papà me l'aveva promesso.",
+                'La scienza è ammettere ciò che non sappiamo',
+                'Non siamo destinati a salvare il mondo ma ad abbandonarlo',
+                "Qual'è il parassita più resistente? Un'idea! Una singola idea della mente umana può costruire città! Un'idea può trasformare il mondo e riscrivere tutte le idee! Ed è per questo che devo rubarla!",
+                "Un'idea è come un virus. Una volta che s'impianta nella mente continua a crescere",
+                "A chi piacerebbe restare tanto in un sogno!? Dipende dal sogno",
+                "Non riesco a ricordarmi di dimenticarti",
+                "La memoria può cambiare la forma di una stanza, il colore di una macchina, i ricordi possono essere distorti, sono una nostra interpretazione, non sono la realtà! Sono irrilevanti rispetto ai fatti",
+                "Come faccio a guarire se non posso sentire il tempo",
+                "Ok",
+                "Ciao",
+            ],
+            showemoji: false,
+            icons:[
+                '&#128512;',
+                '&#128513;',
+                '&#128514;',
+                '&#128515;',
+                '&#128516;',
+                '&#128517;',
+                '&#128518;',
+                '&#128519;',
+                '&#128521;',
+                '&#128522;',
+                '&#128523;',
+                '&#128524;',
+                '&#128525;',
+                '&#128526;',
+                '&#128528;',
+                '&#128529;',
+                '&#128530;',
+                '&#128536;',
+                '&#128545;',
+                '&#128548;',
+                '&#128561;',
+                '&#129315;',
+                '&#129299;',
+                '&#129319;',
+                '&#129321;',
+                '&#129325;',
+                '&#129488;',
+                '&#9996;',
+                '&#9995;',
+                '&#10024;',
+                '&#10062;',
+                '&#128064;',
+                '&#128077;',
+                '&#128079;',
+                '&#128152;',
+                '&#128149;',
+                '&#128156;',
+                '&#128158;',
+                '&#128584;',
+                '&#129310;',
+                '&#129505;',
+                '&#127802;',
+                '&#127801;',
+                '&#9749;'
+              ],
             }
     },
     computed: {
@@ -211,7 +271,9 @@ const app = Vue.createApp({
                 return contact.id == id
             })
         },
-
+        addEmoji(i){
+            this.inputTextMessage += this.icons[i];
+        },
         sendMessage(){
         //clone the "newMessageModel" and add the text with input v-model
             if(this.inputTextMessage.length > 0){
@@ -221,6 +283,10 @@ const app = Vue.createApp({
                 // push into messages array
                 this.contacts[this.activeChatIndex].messages.push(modelClone);
                 this.autoAnswer();
+                this.$nextTick(()=>{
+                    const el = this.$refs.msg[ this.$refs.msg.length -1];
+                    el.scrollIntoView();
+                })
             }
         },
 
@@ -228,10 +294,14 @@ const app = Vue.createApp({
         autoAnswer(){
             setTimeout(()=>{
                 const modelClone = Object.assign({}, this.newMessageModel);
-                modelClone.message = 'Ok';
+                modelClone.message = this.botAnswers[randomNumber(0, this.botAnswers.length -1)];
                 modelClone.status = 'received';
                 // push into messages array
                 this.contacts[this.activeChatIndex].messages.push(modelClone);
+                this.$nextTick(()=>{
+                    const el = this.$refs.msg[ this.$refs.msg.length -1];
+                    el.scrollIntoView();
+                })
             }, 1000)
         },
 
@@ -299,11 +369,13 @@ const app = Vue.createApp({
         deleteChat(){
             this.contacts.splice([this.activeChatIndex], 1)
             this.show = false;
-            
-        }
+        },
+
+        
+
     },
     mounted() {
-
+        
     },
 })
 app.mount('#app');
