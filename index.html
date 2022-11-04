@@ -17,7 +17,7 @@
         <!-- web app divided into 2 parts -->
 
         <!-- sidebar -->
-        <div class="sidebar" >
+        <div class="sidebar" :class="contactDisplay" >
             <div class="static-content light-bg">
                 <div class="light-bg line-height d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
@@ -50,7 +50,7 @@
             <!-- show list of contacts only if there are more than 0 elements -->
             <div class="contacts" v-if="contacts.length > 0" >
                 <!-- for every contact create a div/line -->
-                <div v-for="(contact, index) in filteredContacts"  :key="contacts[index].id" @click="switchDisplay()" >
+                <div v-for="(contact, index) in filteredContacts"  :key="contacts[index].id" @click="switchBlock()" >
                     <!-- if u r acting on his chat, his thumb is emphasized -->
                         <div v-if="contact.messages.length > 1" @click="activeChat(contact.id)" :class="(activeChatIndex == index) ? 'active' : ''" class="light-bg contact line-height d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center" >
@@ -73,10 +73,12 @@
 
 
         <!-- main chat -->
-        <div class="main-chat position-relative" >
+        <div class="main-chat position-relative" :class="chatDisplay">
             <div class="active-chat light-bg line-height d-flex align-items-center justify-content-between">
                 <!-- show the person to chat only if there are contacts in your list -->
                 <div v-if="contacts.length > 0" class="d-flex align-items-center">
+                    <div v-if="windWidth < 768" class="m-2" @click="switchBlock()"><i class="fa-solid fa-caret-left"></i></div>
+
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
                     <div>
                         <h6>{{contacts[activeChatIndex].name}}</h6>
@@ -103,8 +105,8 @@
                 <!-- for every obj in the array messages of the active chat, create a div "chat baloon" -->
                 <div v-for="(messageContainer, index) in contacts[activeChatIndex].messages" class=" d-flex flex-column">
                     <!-- append class sent or received based of the obj.status property -->
-                    <div v-if="messageContainer.message"  :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between" ref="msg" v-html="messageContainer.message">
-                        {{messageContainer.message}}                        
+                    <div v-if="messageContainer.message"  :class="messageContainer.status" class="chat-baloon m-2 d-flex justify-content-between" ref="msg">
+                        <div v-html="messageContainer.message"></div>                        
                         <i class="fa-sharp fa-solid  menu" :class="messageContainer.menu ? 'fa-chevron-left' : 'fa-chevron-down'" @click.stop="menu(index)" ></i>
                         <ul v-if="msgOpt && menuIndex === index" class="drop-menu light-bg">
                             <li @click="showInfo(index)">

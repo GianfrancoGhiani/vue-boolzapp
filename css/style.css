@@ -152,7 +152,6 @@
     padding: 1.5rem;
     max-width: 60%;
     min-width: 20%;
-    word-break: break-all;
     position: relative;
 
 }
@@ -230,6 +229,9 @@ sub{
     font-size: 1.5rem;
 
 }
+.fa-caret-left{
+    cursor: pointer;
+}
 
 
 
@@ -237,15 +239,20 @@ sub{
     .sidebar .notification-bg{
         padding: .6rem;
     }
+    .main-chat .icons{
+        width: 20%;
+    }
     .sidebar .notification-bg .pro-pic{
         display: none;
     }
+   
 }
 @media screen and (max-width:768px){
     .sidebar, .main-chat{
         width: 100%;
     }
-    .d-small{
-        display: none;
+    .main-chat .icons{
+        width: 30%;
     }
+
 }
