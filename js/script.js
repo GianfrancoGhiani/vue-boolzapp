@@ -296,8 +296,8 @@ const app = Vue.createApp({
 
         //take msg index and replace his obj with an empty one
         deleteMessage(i){
-            this.contacts[this.activeChatIndex].messages[i] = {};
-        
+            this.contacts[this.activeChatIndex].messages.splice(i, 1);
+            
         },
 
         //take msg index

@@ -79,8 +79,8 @@
                     <div class="pro-pic"><img :src="`../img/avatar${contacts[activeChatIndex].avatar}.jpg`" :alt="contacts[activeChatIndex].name"></div>
                     <div>
                         <h6>{{contacts[activeChatIndex].name}}</h6>
-                        <div  v-if="contacts[activeChatIndex].messages.length > 1" class="last-msg text-secondary">
-                            {{lastMessageReceived(contacts[activeChatIndex]).date}}
+                        <div  v-if="contacts[activeChatIndex].messages.length > 0" class="last-msg text-secondary">
+                            Ultimo accesso: {{lastMessageReceived(contacts[activeChatIndex]).date}}
                         </div>
                     </div>
                     
