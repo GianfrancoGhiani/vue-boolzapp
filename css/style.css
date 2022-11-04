@@ -205,3 +205,19 @@ sub{
     font-weight: 500;
     font-size: 70%;
 }
+@media screen and (max-width:992px){
+    .sidebar .notification-bg{
+        padding: .6rem;
+    }
+    .sidebar .notification-bg .pro-pic{
+        display: none;
+    }
+}
+@media screen and (max-width:768px){
+    .sidebar{
+        width: 100%;
+    }
+    .main-chat{
+        display: none;
+    }
+}

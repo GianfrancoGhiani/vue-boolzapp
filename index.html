@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="bg-wrapper"></div>
-    <div id="app" class="container-lg p-0 my-3 d-flex align-items-center justify-content-center">
+    <div id="app" class="container-sm p-0 my-3 d-flex align-items-center justify-content-center">
         <!-- web app divided into 2 parts -->
 
         <!-- sidebar -->
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <!-- show list of contacts only if there are more than 0 elements -->
-            <div class="contacts" v-if="contacts.length > 0">
+            <div class="contacts container-fluid" v-if="contacts.length > 0">
                 <!-- for every contact create a div/line -->
                 <div v-for="(contact, index) in filteredContacts"  :key="contacts[index].id">
                     <!-- if u r acting on his chat, his thumb is emphasized -->
