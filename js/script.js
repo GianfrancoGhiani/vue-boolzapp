@@ -249,8 +249,7 @@ const app = Vue.createApp({
                 '&#127801;',
                 '&#9749;'
               ],
-            chatDisplay: '',
-            contactDisplay: '',
+            showSomething: false,
             windWidth: window.innerWidth
             }
     },
@@ -266,22 +265,10 @@ const app = Vue.createApp({
         },
     },
     methods: {
-        //on refresh, take the windows width
-        dnone(){
-            if(this.windWidth < 768){
-                this.chatDisplay = 'd-none'
-                this.contactDisplay = 'd-block';
-            }
-        },
-
         //in small situation show sidebar or chat
         switchBlock(){
-            if(this.chatDisplay === 'd-none'){
-                this.chatDisplay = 'd-block';
-                this.contactDisplay = 'd-none';
-            } else {
-                this.chatDisplay = 'd-none'
-                this.contactDisplay = 'd-block';
+            if(this.windWidth < 768){
+                this.showSomething = !this.showSomething
             }
         },
 
@@ -397,7 +384,7 @@ const app = Vue.createApp({
 
     },
     mounted() {
-        this.dnone()
+        
     },
 })
 app.mount('#app');
