@@ -267,6 +267,7 @@ const app = Vue.createApp({
     methods: {
         //in small situation show sidebar or chat
         switchBlock(){
+            //at every activation update the windows width
             this.windWidth= window.innerWidth
             if(this.windWidth < 768){
                 this.showSomething = !this.showSomething
